@@ -44,7 +44,7 @@ RUN npm run build
 # ─────────────────────────────────────────────────────────────────────
 # Stage 3 — runtime
 # ─────────────────────────────────────────────────────────────────────
-FROM php:8.3.36-fpm-alpine AS runtime
+FROM php:8.3-fpm-alpine AS runtime
 
 # System packages we actually use:
 #   - icu-dev / oniguruma-dev / libxml2-dev → typical Laravel deps
