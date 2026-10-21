@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: PHP Application
-FROM php:8.4-fpm-alpine
+FROM php:8.4.27-fpm-alpine
 
 # Install system dependencies
 # Tesseract: required for the local OCR provider (`/admin/ocr` → Tesseract).
