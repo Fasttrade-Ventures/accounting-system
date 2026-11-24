@@ -33,6 +33,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => UserFactory::DEFAULT_PASSWORD,
             'password_confirmation' => UserFactory::DEFAULT_PASSWORD,
+            'books_mode' => 'basic',
             'accept_privacy' => true,
         ]);
 

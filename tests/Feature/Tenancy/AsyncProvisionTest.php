@@ -80,6 +80,7 @@ class AsyncProvisionTest extends TestCase
             'email' => 'async@example.com',
             'password' => UserFactory::DEFAULT_PASSWORD,
             'password_confirmation' => UserFactory::DEFAULT_PASSWORD,
+            'books_mode' => 'basic',
             'accept_privacy' => true,
         ]);
 
