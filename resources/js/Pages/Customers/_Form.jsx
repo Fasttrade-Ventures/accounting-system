@@ -202,7 +202,7 @@ export default function CustomerForm({
                     </div>
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-5 items-start">
-                    <Field label="LHDN TIN" myinvois missing={missing.tin} error={errors.tin} hint="e.g. C1234567890 or EI00000000010 for general public">
+                    <Field label="Tax number" myinvois missing={missing.tin} error={errors.tin} hint="e.g. C1234567890, or EI00000000010 for a walk-in customer">
                         <input id="myinvois-tin" type="text" value={data.tin} onChange={(e) => setData('tin', e.target.value)} className={inputCls(missing.tin, 'font-mono')} placeholder="C1234567890" />
                     </Field>
                     <Field label="ID type" error={errors.identification_type}>

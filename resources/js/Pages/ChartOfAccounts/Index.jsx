@@ -83,7 +83,7 @@ export default function Index({ auth, accounts = [] }) {
                     <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-terracotta">Ledger</p>
-                            <h1 className="font-display text-xl lg:text-2xl font-medium text-ink tracking-tight">Chart of accounts</h1>
+                            <h1 className="font-display text-xl lg:text-2xl font-medium text-ink tracking-tight">Account list</h1>
                         </div>
                         <p className="text-ink-muted text-sm mt-1 truncate">
                             Categories used when posting invoices and in your financial reports.
@@ -127,7 +127,7 @@ export default function Index({ auth, accounts = [] }) {
                 </div>
             }
         >
-            <Head title="Chart of Accounts" />
+            <Head title="Account list" />
 
 
             <div className="space-y-6">

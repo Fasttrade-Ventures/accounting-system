@@ -6,6 +6,8 @@ import { confirm } from '@/utils/swal';
 import IndexFilterBar from '@/Components/IndexFilterBar';
 import IndexPagination from '@/Components/IndexPagination';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
+import { statusClass } from '@/lib/statusBadge';
 
 const Icons = {
     Document: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>,
@@ -22,15 +24,7 @@ const STATUSES = [
 ];
 
 function statusBadge(status) {
-    const styles = {
-        draft: 'bg-surface-alt text-ink',
-        confirmed: 'bg-mustard/15 text-mustard-dark',
-        partially_delivered: 'bg-terracotta/10 text-terracotta',
-        delivered: 'bg-forest/10 text-forest',
-        invoiced: 'bg-forest/10 text-forest',
-        cancelled: 'bg-surface-alt text-ink-muted',
-    };
-    return styles[status] || 'bg-surface-alt text-ink';
+    return statusClass(status);
 }
 
 export default function Index({ auth, orders, filters = {}, base_currency = 'MYR' }) {
@@ -76,7 +70,7 @@ export default function Index({ auth, orders, filters = {}, base_currency = 'MYR
                         <Link href={route('sales-orders.batch')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-ink bg-surface border border-border-warm hover:bg-cream">
                             Batch
                         </Link>
-                        <Link href={route('sales-orders.create')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-white bg-terracotta shadow-lg">
+                        <Link href={route('sales-orders.create')} className={salesPrimaryButton}>
                             <Icons.Plus /> New sales order
                         </Link>
                     </div>
@@ -85,12 +79,8 @@ export default function Index({ auth, orders, filters = {}, base_currency = 'MYR
         }>
             <Head title="Sales Orders" />
             <div className="space-y-4 min-w-0">
-                <div className="bg-terracotta text-white rounded-2xl p-4 shadow-lg max-w-sm">
-                    <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Orders</span>
-                        <span className="p-2 rounded-xl bg-surface/10"><Icons.Document /></span>
-                    </div>
-                    <p className="text-xl font-bold tabular-nums">{total}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <StatCard label="Orders" value={total} />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

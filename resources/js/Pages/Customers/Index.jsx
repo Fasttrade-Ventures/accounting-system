@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { confirm } from '@/utils/swal';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
 
 const Icons = {
     Users: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>,
@@ -53,7 +54,7 @@ export default function Index({ auth, customers = [] }) {
                     {auth.permissions.includes('customers.create') && (
                         <Link 
                             href={route('customers.create')} 
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta shadow-lg  transition-all duration-200"
+                            className={salesPrimaryButton}
                         >
                             <Icons.Plus /> Onboard Customer
                         </Link>
@@ -66,26 +67,8 @@ export default function Index({ auth, customers = [] }) {
             <div className="space-y-6">
                 {/* KPI row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Total Portfolio</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Users /></span>
-                        </div>
-                        <p className="text-2xl font-bold tabular-nums">
-                            {customers.length} account{customers.length !== 1 ? 's' : ''}
-                        </p>
-                        <p className="text-xs text-terracotta mt-1">Active and suspended</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Total Outstanding</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Exclamation /></span>
-                        </div>
-                        <p className="text-xl font-bold text-terracotta font-mono tabular-nums">
-                            RM {totalOutstanding.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-                        </p>
-                        <p className="text-xs text-ink-muted mt-1">AR across all customers</p>
-                    </div>
+                    <StatCard label="Customers" value={customers.length} hint="Active and suspended" />
+                    <StatCard label="Still to collect" value={`RM ${totalOutstanding.toLocaleString('en-MY', { minimumFractionDigits: 2 })}`} hint="Across all customers" />
                 </div>
 
                 {/* Table Card */}
@@ -132,7 +115,7 @@ export default function Index({ auth, customers = [] }) {
                             <thead>
                                 <tr className="text-left text-[10px] font-display font-medium text-ink-muted uppercase tracking-widest border-b border-border-warm bg-cream/80">
                                     <th className="px-6 py-4">Customer</th>
-                                    <th className="px-6 py-4 hidden md:table-cell">Tax / LHDN</th>
+                                    <th className="px-6 py-4 hidden md:table-cell">Tax number</th>
                                     <th className="px-6 py-4">Terms</th>
                                     <th className="px-6 py-4 text-right">Outstanding</th>
                                     <th className="px-6 py-4 text-right w-16">Actions</th>
@@ -150,7 +133,7 @@ export default function Index({ auth, customers = [] }) {
                                                     <span className="font-semibold text-ink group-hover/link:text-terracotta transition-colors">{customer.name}</span>
                                                     <p className="text-xs text-ink-muted font-mono mt-0.5">{customer.code}</p>
                                                     <div className="flex flex-wrap gap-1 mt-1">
-                                                        {customer.credit_hold && <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold bg-mustard/15 text-mustard">Credit hold</span>}
+                                                        {customer.credit_hold && <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold bg-terracotta/10 text-terracotta">Credit hold</span>}
                                                         {customer.has_overdue && <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold bg-terracotta/10 text-terracotta">Overdue</span>}
                                                         {customer.risk_rating === 'high' && <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold bg-terracotta/10 text-terracotta">High risk</span>}
                                                     </div>

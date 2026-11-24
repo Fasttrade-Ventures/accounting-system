@@ -88,6 +88,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role'       => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'plan.permission' => \App\Http\Middleware\CheckPlanPermission::class,
             'goods.flow' => \App\Http\Middleware\EnsureGoodsSalesFlow::class,
+            'books.mode' => \App\Http\Middleware\EnsureBooksMode::class,
             'log.sensitive' => \App\Http\Middleware\LogSensitiveAccess::class,
             // Returns 404 in self-hosted single-tenant mode. Used to
             // hide multi-tenant SaaS surface (Practice console, super-

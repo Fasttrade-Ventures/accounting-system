@@ -54,7 +54,7 @@ export default function Create({ auth, invoice, lhdn_reasons }) {
                             <Icons.ChevronLeft />
                         </Link>
                         <div className="flex items-center gap-3">
-                            <span className="p-2.5 rounded-xl bg-mustard/15 text-mustard">
+                            <span className="p-2.5 rounded-xl bg-surface-alt text-terracotta">
                                 <Icons.Document />
                             </span>
                             <div>
@@ -76,7 +76,7 @@ export default function Create({ auth, invoice, lhdn_reasons }) {
                             type="submit" 
                             form="credit-note-create-form"
                             disabled={processing}
-                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-white bg-mustard hover:bg-mustard disabled:opacity-50 shadow-lg  transition-all duration-200"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta-dark disabled:opacity-50"
                         >
                             {processing ? 'Issuing...' : 'Issue Credit Note'}
                         </button>

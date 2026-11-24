@@ -118,10 +118,6 @@ export default function RecurringInvoiceForm({
                             <input type="number" step="0.000001" min="0.000001" value={data.exchange_rate || ''} onChange={(e) => setData('exchange_rate', e.target.value)} className={inputClass} placeholder="e.g. 4.72" />
                         </div>
                     )}
-                    <div className="min-w-0">
-                        <label className={labelClass}>MSIC code</label>
-                        <input type="text" value={data.msic_code} onChange={(e) => setData('msic_code', e.target.value)} className={`${inputClass} font-mono`} placeholder="00000" />
-                    </div>
                     <div className="md:col-span-4 flex flex-wrap gap-x-6 gap-y-3 pt-1">
                         <label className="inline-flex items-center gap-2 text-sm text-ink cursor-pointer">
                             <input type="checkbox" checked={!!data.is_active} onChange={(e) => setData('is_active', e.target.checked)} className="w-4 h-4 rounded border-border-warm text-terracotta focus:ring-terracotta" />
@@ -133,7 +129,7 @@ export default function RecurringInvoiceForm({
                         </label>
                         <label className="inline-flex items-center gap-2 text-sm text-ink cursor-pointer">
                             <input type="checkbox" checked={!!data.auto_post} onChange={(e) => setData('auto_post', e.target.checked)} className="w-4 h-4 rounded border-border-warm text-terracotta focus:ring-terracotta" />
-                            Post to the ledger automatically
+                            Record automatically when generated
                         </label>
                     </div>
                 </div>

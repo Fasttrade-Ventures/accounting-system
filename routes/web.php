@@ -112,7 +112,7 @@ Route::middleware('throttle:6,60')->group(function () {
 // to bounce freshly-registered users to /verify-email and stranded them
 // if email delivery was delayed — we deliberately moved that to a
 // product-level nag instead of a route-level wall.
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'books.mode'])->group(function () {
     // Subscription pages, publisher tenant admin, license issue/revoke,
     // patch broadcaster, etc. — all SaaS-only routes are extracted to
     // routes/saas.php for visual quarantine. They're all gated by
@@ -223,6 +223,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/settings/invite-firm/{invitation}/decline', [\App\Http\Controllers\Settings\InviteFirmController::class, 'declineIncoming'])
         ->whereNumber('invitation')
         ->name('settings.invite-firm.decline');
+
+    // Flip Basic → Advanced from the Advanced explanation page.
+    Route::post('/books-mode/enable-advanced', [\App\Http\Controllers\BooksModeController::class, 'enableAdvanced'])
+        ->name('books-mode.enable-advanced');
 
     // Dashboard (paid-only via EnsureSubscribed)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

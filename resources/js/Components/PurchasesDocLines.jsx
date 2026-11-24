@@ -1,5 +1,6 @@
 import React from 'react';
 import { lineNet } from '@/Components/DocumentFormNotesTotals';
+import { taxChoiceLabel, visibleTaxCodes } from '@/lib/taxChoiceLabel';
 
 const Icons = {
     Plus: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>,
@@ -9,7 +10,7 @@ const Icons = {
 const lineControlClass = 'w-full h-8 border border-border-warm rounded-lg py-1 px-1.5 text-xs font-medium text-ink bg-surface focus:ring-1 focus:ring-terracotta disabled:bg-cream disabled:text-ink-muted';
 const lineDescClass = 'block w-full min-w-0 h-8 border border-border-warm rounded-lg py-1.5 px-1.5 text-xs leading-4 font-medium text-ink bg-surface placeholder-ink-muted/60 focus:ring-1 focus:ring-terracotta resize-y disabled:bg-cream';
 const lineNumberClass = `${lineControlClass} font-mono tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`;
-const lineTaxClass = `${lineControlClass} px-0.5 pr-5 text-center tabular-nums`;
+const lineTaxClass = `${lineControlClass} px-2 pr-6 text-left`;
 const linePickIconClass = 'relative shrink-0 h-8 w-8 rounded-lg border border-border-warm bg-cream/50 text-ink-muted hover:bg-cream hover:text-terracotta transition-colors';
 
 export function blankPurchaseLine(accountCode = '5000') {
@@ -49,25 +50,25 @@ export default function PurchasesDocLines({ items, onChange, products = [], expe
     return (
         <div className="bg-surface rounded-2xl shadow-sm border border-border-warm/80 min-w-0">
             <div className="overflow-x-auto overscroll-x-contain rounded-2xl">
-                <table className="w-full min-w-[44rem] text-left border-collapse">
+                <table className="w-full min-w-[48rem] text-left border-collapse">
                     <colgroup>
                         <col />
                         <col className="w-24" />
                         <col className="w-16" />
                         <col className="w-[4.75rem]" />
-                        <col className="w-[4.5rem]" />
-                        {showTax && <col className="w-16" />}
+                        <col className="w-[5.5rem]" />
+                        {showTax && <col className="w-[9.5rem]" />}
                         <col className="w-[5.25rem]" />
                         <col className="w-9" />
                     </colgroup>
                     <thead>
-                        <tr className="bg-cream/80 border-b border-border-warm text-[10px] font-display font-medium text-ink-muted uppercase tracking-widest">
+                        <tr className="bg-surface-alt border-b border-border-warm text-[10px] font-display font-medium text-ink-muted uppercase tracking-widest">
                             <th className="px-2 py-2">Description</th>
                             <th className="px-1 py-2">Account</th>
                             <th className="px-1 py-2 text-center">Qty</th>
                             <th className="px-1 py-2 text-right">Price</th>
-                            <th className="px-1 py-2 text-right">Disc</th>
-                            {showTax && <th className="px-1 py-2 text-center">Tax</th>}
+                            <th className="px-1 py-2 text-right">Discount</th>
+                            {showTax && <th className="px-2 py-2 text-left">Tax</th>}
                             <th className="px-2 py-2 text-right">Total</th>
                             <th className="px-1 py-2"></th>
                         </tr>
@@ -145,8 +146,8 @@ export default function PurchasesDocLines({ items, onChange, products = [], expe
                                             disabled={disabled}
                                             className={`${lineTaxClass} block`}
                                         >
-                                            {taxCodes.length > 0 ? taxCodes.map((code) => (
-                                                <option key={code.id} value={code.id}>{code.code} ({code.rate}%)</option>
+                                            {visibleTaxCodes(taxCodes).length > 0 ? visibleTaxCodes(taxCodes).map((code) => (
+                                                <option key={code.id} value={code.id}>{taxChoiceLabel(code)}</option>
                                             )) : (
                                                 <>
                                                     <option value="0">0%</option>

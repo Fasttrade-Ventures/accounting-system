@@ -121,7 +121,7 @@ export default function Report({
                     : route('general-ledger.index');
 
     const backLabel = from === 'coa'
-        ? 'Back to Chart of Accounts'
+        ? 'Back to Account list'
         : from === 'tb'
             ? 'Back to Trial Balance'
             : from === 'pl'

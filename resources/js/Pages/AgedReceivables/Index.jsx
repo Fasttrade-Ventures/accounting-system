@@ -274,7 +274,7 @@ export default function Index({ auth, invoices = [], summary = {}, bankAccounts 
                                         <label className="block text-[10px] font-semibold text-ink-muted uppercase tracking-wider mb-2">Bank account</label>
                                         <select value={data.bank_account_code} onChange={(e) => setData('bank_account_code', e.target.value)} className="w-full border border-border-warm rounded-xl py-2.5 px-4 text-sm">
                                             {(bankAccounts || []).length === 0 && (
-                                                <option value="">No bank/cash accounts — add one in Chart of Accounts</option>
+                                                <option value="">No bank/cash accounts — add one in Account list</option>
                                             )}
                                             {(bankAccounts || []).map((a) => (
                                                 <option key={a.value} value={a.value}>{a.label}</option>

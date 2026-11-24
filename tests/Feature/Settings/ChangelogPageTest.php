@@ -37,9 +37,9 @@ class ChangelogPageTest extends TestCase
         $response->assertOk();
         $response->assertInertia(fn ($page) => $page
             ->component('Settings/Changelog')
-            ->has('releases', 10)
-            ->where('releases.0.id', 'wave-4')
+            ->has('releases', 11)
+            ->where('releases.0.id', '2026-11-plain-language-basic-mode')
             ->where('meta.first_commit', '2026-03-10')
-            ->where('releases.9.id', '2026-03-foundation'));
+            ->where('releases.10.id', '2026-03-foundation'));
     }
 }

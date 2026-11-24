@@ -5,6 +5,7 @@ import { confirm } from '@/utils/swal';
 import IndexFilterBar from '@/Components/IndexFilterBar';
 import IndexPagination from '@/Components/IndexPagination';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
 
 const Icons = {
     Repeat: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>,
@@ -98,7 +99,7 @@ export default function Index({ auth, templates, filters = {}, counts = {} }) {
                         <p className="text-ink-muted text-sm font-medium mt-1">Templates that generate draft invoices on a schedule</p>
                     </div>
                     {permissions.includes('recurring-invoices.create') && (
-                        <Link href={route('recurring-invoices.create')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta shadow-lg transition-all duration-200">
+                        <Link href={route('recurring-invoices.create')} className={salesPrimaryButton}>
                             <Icons.Plus /> New recurring invoice
                         </Link>
                     )}
@@ -109,30 +110,9 @@ export default function Index({ auth, templates, filters = {}, counts = {} }) {
 
             <div className="space-y-4 sm:space-y-6 min-w-0">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Templates</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Repeat /></span>
-                        </div>
-                        <p className="text-xl sm:text-2xl font-bold tabular-nums">{counts.all || 0}</p>
-                        <p className="text-xs text-white/80 mt-1">Active · Paused</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Active</span>
-                            <span className="p-2 rounded-xl bg-forest/10 text-forest"><Icons.Check /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-forest font-mono tabular-nums">{counts.active || 0}</p>
-                        <p className="text-xs text-ink-muted mt-1">Running on schedule</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Due now</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Exclamation /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-terracotta font-mono tabular-nums">{counts.due || 0}</p>
-                        <p className="text-xs text-ink-muted mt-1">Ready to generate</p>
-                    </div>
+                    <StatCard label="Templates" value={counts.all || 0} hint="Active and paused" />
+                    <StatCard label="Active" value={counts.active || 0} hint="Running on schedule" />
+                    <StatCard label="Due now" value={counts.due || 0} hint="Ready to generate" />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

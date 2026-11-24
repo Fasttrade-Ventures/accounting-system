@@ -64,6 +64,8 @@ class RecurringInvoiceController extends Controller
             'customer_id'   => $request->query('customer_id'),
             'products'      => $this->productOptions(),
             'base_currency' => $this->tenantBaseCurrency(),
+            // Hidden on the form — same as invoices: company MSIC, not per template.
+            'default_msic_code' => $this->tenantMsicCode(),
         ]);
     }
 
@@ -185,5 +187,17 @@ class RecurringInvoiceController extends Controller
         }
 
         return 'MYR';
+    }
+
+    private function tenantMsicCode(): string
+    {
+        $tenant = function_exists('tenant') ? tenant() : null;
+        if (! $tenant && auth()->user()?->tenant_id) {
+            $tenant = Tenant::find(auth()->user()->tenant_id);
+        }
+
+        $code = $tenant?->msic_code ?? null;
+
+        return filled($code) ? (string) $code : '00000';
     }
 }

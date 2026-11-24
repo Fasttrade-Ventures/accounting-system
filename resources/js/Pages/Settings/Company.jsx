@@ -44,6 +44,7 @@ export default function Company({ auth, company, canEdit = false }) {
         toyyibpay_secret_key: '',
         late_fee_percent: company.late_fee_percent ?? 1.5,
         show_goods_flow: company.show_goods_flow !== false,
+        books_mode: company.books_mode === 'basic' ? 'basic' : 'advanced',
         invoice_gateway: company.invoice_gateway || 'toyyibpay',
         billplz_collection_id: company.billplz_collection_id || '',
         billplz_secret_key: '',
@@ -132,6 +133,48 @@ export default function Company({ auth, company, canEdit = false }) {
             )}
 
             <form onSubmit={submit} className="max-w-4xl space-y-6">
+                <div className="bg-surface p-6 sm:p-8 rounded-2xl border border-border-warm/80 shadow-sm space-y-4">
+                    <div>
+                        <h3 className="text-sm font-semibold text-ink uppercase tracking-wider">
+                            How you work
+                        </h3>
+                        <p className="text-sm text-ink-muted mt-1">
+                            Basic keeps a short menu for quotes, invoices, and bills. Advanced shows the full set of books screens. Switching does not delete anything already saved.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            disabled={!isAdmin}
+                            onClick={() => setData('books_mode', 'basic')}
+                            className={`text-left px-4 py-3 rounded-2xl border transition-colors disabled:opacity-60 ${
+                                data.books_mode === 'basic'
+                                    ? 'border-terracotta bg-terracotta/5 shadow-sm'
+                                    : 'border-border-warm hover:bg-cream/60'
+                            }`}
+                        >
+                            <span className="block text-sm font-semibold text-ink">I send quotes and invoices</span>
+                            <span className="block text-xs text-ink-muted mt-0.5">Basic — short menu. Books still update behind the scenes.</span>
+                        </button>
+                        <button
+                            type="button"
+                            disabled={!isAdmin}
+                            onClick={() => setData('books_mode', 'advanced')}
+                            className={`text-left px-4 py-3 rounded-2xl border transition-colors disabled:opacity-60 ${
+                                data.books_mode === 'advanced'
+                                    ? 'border-terracotta bg-terracotta/5 shadow-sm'
+                                    : 'border-border-warm hover:bg-cream/60'
+                            }`}
+                        >
+                            <span className="block text-sm font-semibold text-ink">I keep a full set of books</span>
+                            <span className="block text-xs text-ink-muted mt-0.5">Advanced — journals, reports, and the full menu.</span>
+                        </button>
+                    </div>
+                    {errors.books_mode && (
+                        <p className="text-terracotta text-xs">{errors.books_mode}</p>
+                    )}
+                </div>
+
                 <div className="bg-surface p-6 sm:p-8 rounded-2xl border border-border-warm/80 shadow-sm space-y-4">
                     <h3 className="text-sm font-semibold text-ink uppercase tracking-wider">
                         Identity
@@ -402,21 +445,24 @@ export default function Company({ auth, company, canEdit = false }) {
                             ))}
                         </div>
                     </div>
-                    <label className="inline-flex items-center gap-2 text-sm">
-                        <input type="checkbox" checked={data.show_goods_flow} onChange={(e) => setData('show_goods_flow', e.target.checked)} disabled={!isAdmin} />
-                        Show sales orders and delivery orders (traders). Turn off for service businesses.
-                    </label>
+                    {data.books_mode === 'advanced' && (
+                        <label className="inline-flex items-center gap-2 text-sm">
+                            <input type="checkbox" checked={data.show_goods_flow} onChange={(e) => setData('show_goods_flow', e.target.checked)} disabled={!isAdmin} />
+                            Show sales orders and delivery orders (traders). Turn off for service businesses.
+                        </label>
+                    )}
                 </div>
 
                 <div className="bg-surface p-6 sm:p-8 rounded-2xl border border-border-warm/80 shadow-sm space-y-4">
                     <div>
                         <h3 className="text-sm font-semibold text-ink uppercase tracking-wider">MyInvois</h3>
-                        <p className="text-sm text-ink-muted mt-1">MSIC and SST are required before you can submit e-invoices. Preprod is LHDN sandbox; live needs production Client ID and Secret.</p>
+                        <p className="text-sm text-ink-muted mt-1">Set the business activity code once. It is copied onto e-invoices. The sandbox is for testing; live needs a production client ID and secret.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className={labelClass}>MSIC code</label>
+                            <label className={labelClass}>Business activity code</label>
                             <input type="text" className={inputClass} value={data.msic_code} onChange={(e) => setData('msic_code', e.target.value)} disabled={!isAdmin} placeholder="62011" />
+                            <p className="text-xs text-ink-muted mt-1.5">Example: 62011 for computer programming.</p>
                         </div>
                         <div>
                             <label className={labelClass}>SST number</label>

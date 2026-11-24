@@ -96,7 +96,7 @@ export default function Index({ auth, deposits = [] }) {
                                         </tr>
                                     );
                                 }) : (
-                                    <tr><td colSpan={5} className="px-6 py-16 text-center text-ink-muted text-sm">{filters.searchInput || filters.status ? 'No supplier deposits match.' : 'No supplier deposits yet. Record a knock-off across bills from New payment.'}</td></tr>
+                                    <tr><td colSpan={5} className="px-6 py-16 text-center text-ink-muted text-sm">{filters.searchInput || filters.status ? 'No supplier deposits match.' : 'No supplier deposits yet. Record a payment, then apply it to a bill.'}</td></tr>
                                 )}
                             </tbody>
                         </table>

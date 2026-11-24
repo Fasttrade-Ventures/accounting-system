@@ -13,6 +13,7 @@ export default function Create({
     customer_id: preselectedCustomerId = null,
     products = [],
     base_currency = 'MYR',
+    default_msic_code = '00000',
 }) {
     const today = todayString();
 
@@ -29,7 +30,7 @@ export default function Create({
         exchange_rate: 1,
         shipping_amount: 0,
         payment_terms_days: 30,
-        msic_code: '00000',
+        msic_code: default_msic_code || '00000',
         items: [{ ...blankSalesLine(), tax_rate: 0 }],
         customer_notes: '',
         private_notes: '',

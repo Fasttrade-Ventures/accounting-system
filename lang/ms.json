@@ -130,7 +130,7 @@
             "duplicate": "Salin",
             "preview_pdf": "Pratonton PDF",
             "download_pdf": "Muat turun PDF",
-            "post_to_ledger": "Pos ke lejar",
+            "post_to_ledger": "Rekod invois ini",
             "edit": "Edit",
             "delete_draft": "Padam draf",
             "record_payment": "Rekod bayaran",
@@ -183,7 +183,7 @@
             "amount": "Amaun",
             "date": "Tarikh",
             "account": "Akaun",
-            "no_bank_accounts": "Tiada akaun bank/tunai — tambah dalam Carta Akaun",
+            "no_bank_accounts": "Tiada akaun bank/tunai — tambah dalam Senarai akaun",
             "cancel": "Batal",
             "confirm": "Sahkan resit",
             "processing": "Memproses..."
@@ -228,7 +228,7 @@
             "duplicate": "Salin",
             "preview_pdf": "Pratonton PDF",
             "download_pdf": "Muat turun PDF",
-            "post_to_ledger": "Pos ke lejar",
+            "post_to_ledger": "Rekod bil ini",
             "edit": "Edit",
             "delete_draft": "Padam draf",
             "record_payment": "Rekod bayaran",
@@ -237,9 +237,9 @@
             "balance_short": "Baki:"
         },
         "confirm": {
-            "post_title": "Pos ke lejar?",
-            "post_text": "Butiran bil akan dikunci dan entri lejar am dicipta.",
-            "post_confirm": "Pos",
+            "post_title": "Rekod bil ini?",
+            "post_text": "Butiran bil akan dikunci dan entri perakaunan dicipta.",
+            "post_confirm": "Rekod",
             "void_title": "Batalkan bil?",
             "void_text": "Entri songsangan dicipta dan baki dibatalkan. Tindakan ini tidak boleh dibuat asal.",
             "void_confirm": "Batalkan",
@@ -268,7 +268,7 @@
             "amount": "Amaun",
             "date": "Tarikh",
             "account": "Akaun",
-            "no_bank_accounts": "Tiada akaun bank/tunai — tambah dalam Carta Akaun",
+            "no_bank_accounts": "Tiada akaun bank/tunai — tambah dalam Senarai akaun",
             "cancel": "Batal",
             "confirm": "Sahkan bayaran",
             "processing": "Memproses..."

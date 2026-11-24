@@ -39,7 +39,7 @@ export function blankInvoiceLine(extra = {}) {
         tax_rate: 8,
         tax_code_id: null,
         discount_amount: 0,
-        item_classification: '011',
+        item_classification: '022',
         product_id: null,
         ...extra,
     };
@@ -56,7 +56,7 @@ export function itemsFromInvoice(invoice) {
         tax_rate: parseFloat(item.tax_rate),
         tax_code_id: item.tax_code_id ?? null,
         discount_amount: parseFloat(item.discount_amount || 0),
-        item_classification: item.item_classification || '011',
+        item_classification: item.item_classification || '022',
         product_id: item.product_id ?? null,
     }));
 }
@@ -119,7 +119,6 @@ export default function InvoiceForm({
     const options = customerOptions ?? customers;
     const banner = BANNER_COPY[mode] || BANNER_COPY.create;
     const signatureId = `invoice-show-signature-${mode}`;
-    const msicHelpId = mode === 'edit' ? 'msic-code-help-edit' : 'msic-code-help';
 
     useEffect(() => {
         const cur = (data.currency || 'MYR').toUpperCase();
@@ -150,11 +149,9 @@ export default function InvoiceForm({
         invCur,
     } = totals;
 
-    const taxLabel = mode === 'create' ? 'SST (Service Tax)' : 'SST (Tax)';
+    const taxLabel = 'Tax';
     const shippingLabel = mode === 'create' ? 'Shipping/Handling' : 'Shipping';
-    const exchangeHint = mode === 'create'
-        ? 'Ledger posting converts line totals into your company base currency using this rate.'
-        : 'Ledger posting converts amounts using this rate.';
+    const exchangeHint = 'We convert this into your company currency.';
 
     return (
         <form id={formId} onSubmit={onSubmit} className="space-y-6 pb-12 min-w-0">
@@ -179,41 +176,7 @@ export default function InvoiceForm({
                             <p className="text-xs text-ink-muted mt-1.5">Must be unique. Another invoice cannot reuse this number while it exists.</p>
                         )}
                     </div>
-                    <div className="min-w-0">
-                        <label className={`${labelClass} flex items-center gap-1.5`}>
-                            MSIC Code
-                            <span className="relative inline-flex group/msic">
-                                <button
-                                    type="button"
-                                    className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border-warm text-[9px] font-bold text-ink-muted hover:text-ink hover:border-ink-muted focus:outline-none focus:ring-2 focus:ring-terracotta"
-                                    aria-describedby={msicHelpId}
-                                    aria-label="What is MSIC Code?"
-                                >
-                                    ?
-                                </button>
-                                <span
-                                    id={msicHelpId}
-                                    role="tooltip"
-                                    className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 w-64 -translate-x-1/2 rounded-xl border border-border-warm bg-surface px-3 py-2 text-[11px] font-medium normal-case tracking-normal text-ink shadow-lg opacity-0 transition-opacity duration-150 group-hover/msic:opacity-100 group-focus-within/msic:opacity-100"
-                                >
-                                    <span className="font-semibold text-ink">Malaysia Standard Industrial Classification</span>
-                                    <span className="mt-1 block text-ink-muted font-normal leading-snug">
-                                        5-digit business activity code required for LHDN MyInvois e-invoicing. Example: <span className="font-mono text-ink">62011</span> for computer programming.
-                                    </span>
-                                </span>
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            value={data.msic_code}
-                            onChange={(e) => setData('msic_code', e.target.value)}
-                            className={inputClass}
-                            placeholder="e.g. 62011"
-                            disabled={disabled}
-                        />
-                        {errors.msic_code && <p className="text-terracotta text-xs font-medium mt-1">{errors.msic_code}</p>}
-                    </div>
-                    <div className="md:col-span-2 min-w-0">
+                    <div className="md:col-span-3 min-w-0">
                         <label className={labelClass}>Customer</label>
                         {showNewCustomer ? (
                             <div className="flex gap-2 items-stretch min-w-0">

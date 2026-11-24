@@ -63,7 +63,6 @@ export default function Edit({
                     processing={processing}
                     submitLabel="Save changes"
                     showSubmit={editable}
-                    accent="mustard"
                 />
             }
         >

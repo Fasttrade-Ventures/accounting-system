@@ -5,6 +5,7 @@ import { formatCurrency } from '@/utils/currency';
 import IndexFilterBar from '@/Components/IndexFilterBar';
 import IndexPagination from '@/Components/IndexPagination';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
+import StatCard from '@/Components/StatCard';
 
 const Icons = {
     Statement: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a4 4 0 014-4h4a4 4 0 014 4v2M3 7h2m0 0h2M5 7v2m0-2V5m9 4a2 2 0 11-4 0 2 2 0 014 0zM7 13H4a1 1 0 00-1 1v6a1 1 0 001 1h3" /></svg>,
@@ -61,30 +62,9 @@ export default function Index({
 
             <div className="space-y-4 sm:space-y-6 min-w-0">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Customers</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Statement /></span>
-                        </div>
-                        <p className="text-xl sm:text-2xl font-bold tabular-nums">{totalCount}</p>
-                        <p className="text-xs text-terracotta mt-1">Outstanding · Settled</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Outstanding (AR)</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Exclamation /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-terracotta font-mono tabular-nums">{formatCurrency(outstandingTotal, base_currency)}</p>
-                        <p className="text-xs text-ink-muted mt-1">{outstandingCount} with open invoices</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Settled</span>
-                            <span className="p-2 rounded-xl bg-forest/10 text-forest"><Icons.Check /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-forest font-mono tabular-nums">{settledCount}</p>
-                        <p className="text-xs text-ink-muted mt-1">No open balance</p>
-                    </div>
+                    <StatCard label="Customers" value={totalCount} hint="Outstanding and settled" />
+                    <StatCard label="Still to collect" value={formatCurrency(outstandingTotal, base_currency)} hint={`${outstandingCount} with open invoices`} />
+                    <StatCard label="Settled" value={settledCount} hint="No open balance" />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

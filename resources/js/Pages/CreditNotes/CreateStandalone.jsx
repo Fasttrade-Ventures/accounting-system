@@ -29,16 +29,15 @@ export default function CreateStandalone({ auth, customers = [], next_number, lh
             header={
                 <DocumentFormHeader
                     backHref={route('credit-notes.index')}
-                    title="Standalone credit note"
+                    title="New credit note"
                     subtitle="Issue a credit without tying it to a specific invoice first"
                     formId="cn-standalone-form"
                     processing={processing}
                     submitLabel="Issue credit note"
-                    accent="mustard"
                 />
             }
         >
-            <Head title="Standalone credit note" />
+            <Head title="New credit note" />
             <form id="cn-standalone-form" onSubmit={(e) => { e.preventDefault(); post(route('credit-notes.store')); }} className="space-y-6 pb-12 min-w-0">
                 <div className="bg-surface p-6 rounded-2xl border border-border-warm/80 shadow-sm">
                     <div className="flex items-center gap-2 mb-6">
@@ -67,7 +66,7 @@ export default function CreateStandalone({ auth, customers = [], next_number, lh
                 </div>
                 <SalesDocLines items={data.items} onChange={(items) => setData('items', items)} />
                 <DocumentFormNotesTotals
-                    bannerTitle="Standalone credit"
+                    bannerTitle="Credit note"
                     bannerText="This credit is not tied to a specific invoice. Apply it later from the customer’s open invoices."
                     notesValue={data.customer_notes}
                     onNotesChange={(value) => setData('customer_notes', value)}

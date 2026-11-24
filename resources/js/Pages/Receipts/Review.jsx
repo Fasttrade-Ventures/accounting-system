@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import { confirm } from '@/utils/swal';
 import PurchasesDocLines, { blankPurchaseLine } from '@/Components/PurchasesDocLines';
+import { taxChoiceLabel, visibleTaxCodes } from '@/lib/taxChoiceLabel';
 
 const inputClass = 'w-full h-11 border border-border-warm rounded-xl px-4 text-sm font-medium text-ink focus:ring-2 focus:ring-terracotta focus:border-terracotta transition-colors';
 const labelClass = 'block text-[10px] font-semibold text-ink-muted uppercase tracking-wider mb-1.5';
@@ -217,11 +218,11 @@ export default function Review({ auth, job, suppliers = [], expenseAccounts = []
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className={labelClass}>Tax code</label>
+                                <label className={labelClass}>Tax</label>
                                 <select value={data.tax_code_id} onChange={(e) => setData('tax_code_id', e.target.value)} className={inputClass}>
-                                    <option value="">— None —</option>
-                                    {taxCodes.map((tc) => (
-                                        <option key={tc.id} value={tc.id}>{tc.code} — {tc.name} ({tc.rate}%)</option>
+                                    <option value="">No tax</option>
+                                    {visibleTaxCodes(taxCodes).map((tc) => (
+                                        <option key={tc.id} value={tc.id}>{taxChoiceLabel(tc)}</option>
                                     ))}
                                 </select>
                             </div>

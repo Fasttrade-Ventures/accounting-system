@@ -61,6 +61,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'books_mode' => ['required', 'string', 'in:basic,advanced'],
             // PDPA: consent must be explicit and tied to a policy version.
             // `accepted` rule covers true / "yes" / "1" / "on", which is what
             // a checked HTML checkbox sends.
@@ -75,6 +76,9 @@ class RegisteredUserController extends Controller
             'id' => $companyId,
             'provision_status' => 'pending',
         ]);
+        // books_mode is a Stancl virtual attribute (data JSON), not fillable.
+        $tenant->books_mode = \App\Support\BooksMode::normalize($request->input('books_mode'));
+        $tenant->save();
 
 
         $adminRole = Role::where('name', 'admin')->where('guard_name', 'web')->first();

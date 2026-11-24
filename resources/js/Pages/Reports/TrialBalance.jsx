@@ -114,7 +114,7 @@ export default function TrialBalance({
                     <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-terracotta">Reports</p>
-                            <h1 className="font-display text-xl lg:text-2xl font-medium text-ink tracking-tight">Trial balance</h1>
+                            <h1 className="font-display text-xl lg:text-2xl font-medium text-ink tracking-tight">Balance check</h1>
                         </div>
                         <p className="text-ink-muted text-sm mt-1 truncate">
                             Account balances as of {formatAsOf(asOfDate) || 'today'}. Click a line to open the ledger.
@@ -123,7 +123,7 @@ export default function TrialBalance({
                 </div>
             }
         >
-            <Head title="Trial Balance" />
+            <Head title="Balance check" />
 
             <div className="space-y-4 sm:space-y-5 min-w-0">
                 <div className="bg-surface rounded-2xl border border-border-warm shadow-sm p-4 space-y-3">

@@ -106,12 +106,12 @@ export default function Show({
                             type="button"
                             className={headerPrimary}
                             onClick={async () => {
-                                if (await confirm({ title: 'Post to ledger?', confirmText: 'Post' })) {
+                                if (await confirm({ title: 'Record this invoice?', confirmText: 'Record' })) {
                                     postAction(route('invoices.post', invoice.id));
                                 }
                             }}
                         >
-                            Post invoice
+                            Record this invoice
                         </button>
                     )}
                 </DocumentShowHeader>

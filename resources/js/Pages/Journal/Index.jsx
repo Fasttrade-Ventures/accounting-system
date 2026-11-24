@@ -55,9 +55,9 @@ export default function Index({
 
     const handlePost = async (id) => {
         const ok = await confirm({
-            title: 'Post to Ledger?',
-            text: 'This will lock the journal entry and create ledger postings. This action cannot be undone.',
-            confirmText: 'Post Entry',
+            title: 'Record this entry?',
+            text: 'This locks the entry and writes it into your books. You cannot undo it.',
+            confirmText: 'Record',
             icon: 'question',
         });
         if (ok) router.post(route('journal.post', id));
@@ -196,7 +196,7 @@ export default function Index({
                                             ) : (
                                                 <RowActionsMenu items={[
                                                     { label: 'Edit', href: route('journal.edit', journal.id), icon: <ActionIcons.Pencil />, show: auth.permissions.includes('journal.edit') },
-                                                    { label: 'Post to ledger', icon: <ActionIcons.Check />, show: auth.permissions.includes('journal.post'), onClick: () => handlePost(journal.id) },
+                                                    { label: 'Record this entry', icon: <ActionIcons.Check />, show: auth.permissions.includes('journal.post'), onClick: () => handlePost(journal.id) },
                                                     { label: 'Delete draft', icon: <ActionIcons.Trash />, danger: true, show: auth.permissions.includes('journal.delete'), onClick: () => handleDelete(journal.id) },
                                                 ]} />
                                             )}
@@ -235,7 +235,7 @@ export default function Index({
                                     {journal.status !== 'posted' && (
                                         <RowActionsMenu items={[
                                             { label: 'Edit', href: route('journal.edit', journal.id), icon: <ActionIcons.Pencil />, show: auth.permissions.includes('journal.edit') },
-                                            { label: 'Post to ledger', icon: <ActionIcons.Check />, show: auth.permissions.includes('journal.post'), onClick: () => handlePost(journal.id) },
+                                            { label: 'Record this entry', icon: <ActionIcons.Check />, show: auth.permissions.includes('journal.post'), onClick: () => handlePost(journal.id) },
                                             { label: 'Delete draft', icon: <ActionIcons.Trash />, danger: true, show: auth.permissions.includes('journal.delete'), onClick: () => handleDelete(journal.id) },
                                         ]} />
                                     )}

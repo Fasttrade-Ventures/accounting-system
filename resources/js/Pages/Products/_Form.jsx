@@ -4,10 +4,10 @@ const inputClass = 'w-full h-11 border border-border-warm rounded-xl px-4 text-s
 const labelClass = 'flex items-center gap-1.5 text-[10px] font-semibold text-ink-muted uppercase tracking-wider mb-1.5 leading-none min-h-4';
 
 const CLASSIFICATION_OPTIONS = [
-    { value: '022', label: '022 — Professional services' },
-    { value: '011', label: '011 — General merchandise' },
-    { value: '001', label: '001 — Standard rate' },
-    { value: '010', label: '010 — Exempt' },
+    { value: '022', label: 'Professional services' },
+    { value: '011', label: 'General merchandise' },
+    { value: '001', label: 'Standard rate' },
+    { value: '010', label: 'Exempt' },
 ];
 
 const Icons = {
@@ -164,7 +164,7 @@ export default function ProductForm({
                             label="Classification"
                             myinvois
                             error={errors.classification_code}
-                            hint="Copied onto invoice lines for LHDN"
+                            hint="Filled in automatically on invoices. Change this only if the item is goods, not a service."
                         >
                             <select
                                 value={data.classification_code || '022'}

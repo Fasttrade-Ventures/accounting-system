@@ -5,6 +5,8 @@ import IndexFilterBar from '@/Components/IndexFilterBar';
 import IndexPagination from '@/Components/IndexPagination';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
 import useClientIndexFilters from '@/hooks/useClientIndexFilters';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
+import { statusPill } from '@/lib/statusBadge';
 
 const Icons = {
     Document: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>,
@@ -32,8 +34,8 @@ export default function Index({ auth, creditNotes = [] }) {
                         <p className="text-ink-muted text-sm font-medium mt-1">Refunds and invoice adjustments</p>
                     </div>
                     {permissions.includes('credit-notes.create') && (
-                        <Link href={route('credit-notes.create-standalone')} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white bg-mustard hover:bg-mustard/90 text-sm">
-                            Standalone credit
+                        <Link href={route('credit-notes.create-standalone')} className={salesPrimaryButton}>
+                            New credit note
                         </Link>
                     )}
                 </div>
@@ -43,31 +45,19 @@ export default function Index({ auth, creditNotes = [] }) {
 
             <div className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="relative overflow-hidden bg-mustard text-white rounded-2xl p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Total Credit Notes</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Document /></span>
-                        </div>
-                        <p className="text-2xl font-bold tabular-nums">{creditNotes.length} issued</p>
-                        <p className="text-xs text-mustard mt-1">Adjustments and refunds</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Total Value Credited</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Currency /></span>
-                        </div>
-                        <p className="text-xl font-bold text-terracotta font-mono tabular-nums">
-                            RM {totalValue.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-                        </p>
-                        <p className="text-xs text-ink-muted mt-1">Net credit issued</p>
-                    </div>
+                    <StatCard label="Credit notes" value={creditNotes.length} hint="Adjustments and refunds" />
+                    <StatCard
+                        label="Value credited"
+                        value={`RM ${totalValue.toLocaleString('en-MY', { minimumFractionDigits: 2 })}`}
+                        hint="Net credit issued"
+                    />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">
                     <IndexFilterBar
                         search={filters.searchInput}
                         onSearchChange={filters.setSearchInput}
-                        searchPlaceholder="Search by CN # or customer..."
+                        searchPlaceholder="Search by credit note number or customer..."
                         status={filters.status}
                         statuses={statuses}
                         perPage={filters.perPage}
@@ -105,7 +95,7 @@ export default function Index({ auth, creditNotes = [] }) {
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="inline-flex px-2 py-0.5 rounded-md text-[10px] font-semibold bg-mustard/15 text-mustard">
+                                            <span className={statusPill(cn.status || 'posted')}>
                                                 {cn.status || 'posted'}
                                             </span>
                                         </td>

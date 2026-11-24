@@ -6,6 +6,8 @@ import IndexFilterBar from '@/Components/IndexFilterBar';
 import IndexPagination from '@/Components/IndexPagination';
 import RowActionsMenu, { ActionIcons } from '@/Components/RowActionsMenu';
 import useClientIndexFilters from '@/hooks/useClientIndexFilters';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
+import { statusClass } from '@/lib/statusBadge';
 
 const Icons = {
     Document: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>,
@@ -21,12 +23,7 @@ const STATUSES = [
 ];
 
 function statusBadge(status) {
-    const styles = {
-        posted: 'bg-forest/10 text-forest',
-        void: 'bg-surface-alt text-ink-muted',
-        draft: 'bg-surface-alt text-ink',
-    };
-    return styles[status] || 'bg-surface-alt text-ink';
+    return statusClass(status);
 }
 
 export default function Index({ auth, debitNotes = [] }) {
@@ -47,7 +44,7 @@ export default function Index({ auth, debitNotes = [] }) {
                     <p className="text-ink-muted text-sm font-medium mt-1">Charge extra on a posted invoice — tax and ledger included</p>
                 </div>
                 {permissions.includes('debit-notes.create') && (
-                    <Link href={route('debit-notes.create')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta shadow-lg">
+                    <Link href={route('debit-notes.create')} className={salesPrimaryButton}>
                         <Icons.Plus /> Issue debit note
                     </Link>
                 )}
@@ -56,17 +53,8 @@ export default function Index({ auth, debitNotes = [] }) {
             <Head title="Debit Notes" />
             <div className="space-y-4 min-w-0">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-4 shadow-lg">
-                        <div className="flex items-center justify-between mb-1">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Issued</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Document /></span>
-                        </div>
-                        <p className="text-xl font-bold tabular-nums">{debitNotes.length}</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 border border-border-warm shadow-sm">
-                        <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Value</span>
-                        <p className="text-lg font-bold text-ink font-mono tabular-nums mt-1">RM {totalValue.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</p>
-                    </div>
+                    <StatCard label="Issued" value={debitNotes.length} />
+                    <StatCard label="Value" value={`RM ${totalValue.toLocaleString('en-MY', { minimumFractionDigits: 2 })}`} />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

@@ -95,7 +95,7 @@ export default function Withdrawal({ auth, bank_accounts = [], category_accounts
                                     </select>
                                     {errors.bank_account_id && <p className="mt-1 text-xs text-terracotta">{errors.bank_account_id}</p>}
                                     {bank_accounts.length === 0 && (
-                                        <p className="mt-2 text-xs text-ink-muted">No bank or cash accounts found. Add one under <Link href={route('chart-of-accounts.index')} className="underline font-semibold">Chart of Accounts</Link> first.</p>
+                                        <p className="mt-2 text-xs text-ink-muted">No bank or cash accounts found. Add one under <Link href={route('chart-of-accounts.index')} className="underline font-semibold">Account list</Link> first.</p>
                                     )}
                                 </div>
                                 <div>
@@ -132,7 +132,7 @@ export default function Withdrawal({ auth, bank_accounts = [], category_accounts
                             <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                                 <li><span className="font-semibold text-ink">Debit</span> the category you selected</li>
                                 <li><span className="font-semibold text-ink">Credit</span> the bank or cash account</li>
-                                <li>Shows up in General Ledger and Trial Balance right away</li>
+                                <li>Shows up in All entries and Balance check right away</li>
                             </ul>
                         </div>
                     </div>

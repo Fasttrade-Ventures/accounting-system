@@ -13,6 +13,7 @@ export default function Register({ botGuard, privacyVersion, trialDays = 14 }) {
         email: '',
         password: '',
         password_confirmation: '',
+        books_mode: 'basic',
         accept_privacy: false,
         privacy_version: privacyVersion ?? '',
         _hp_url: '',
@@ -67,8 +68,46 @@ export default function Register({ botGuard, privacyVersion, trialDays = 14 }) {
                 </p>
             </div>
 
+            <div className="mb-7">
+                <p className="text-eyebrow font-semibold uppercase text-ink-muted text-center mb-2">
+                    How do you want to work?
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                    <button
+                        type="button"
+                        onClick={() => setData('books_mode', 'basic')}
+                        className={`text-left px-4 py-3 rounded-2xl border transition-colors ${
+                            data.books_mode === 'basic'
+                                ? 'border-terracotta bg-terracotta/5 shadow-sm'
+                                : 'border-border-warm bg-surface hover:bg-cream/60'
+                        }`}
+                    >
+                        <span className="block text-sm font-semibold text-ink">I send quotes and invoices</span>
+                        <span className="block text-xs text-ink-muted mt-0.5">
+                            Basic — a short menu for estimates, invoices, bills, and customers. The books still update in the background.
+                        </span>
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setData('books_mode', 'advanced')}
+                        className={`text-left px-4 py-3 rounded-2xl border transition-colors ${
+                            data.books_mode === 'advanced'
+                                ? 'border-terracotta bg-terracotta/5 shadow-sm'
+                                : 'border-border-warm bg-surface hover:bg-cream/60'
+                        }`}
+                    >
+                        <span className="block text-sm font-semibold text-ink">I keep a full set of books</span>
+                        <span className="block text-xs text-ink-muted mt-0.5">
+                            Advanced — the full menu including journals, reports, and accounting screens.
+                        </span>
+                    </button>
+                </div>
+                <InputError message={errors.books_mode} className="mt-2" />
+            </div>
+
             <form onSubmit={submit} className="space-y-5">
                 <SpamBotFields data={data} setData={setData} botGuard={botGuard} />
+                <input type="hidden" name="books_mode" value={data.books_mode} />
 
                 <div>
                     <InputLabel htmlFor="name" value="Full Name" />

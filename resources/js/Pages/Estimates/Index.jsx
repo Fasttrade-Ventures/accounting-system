@@ -4,6 +4,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { confirm } from '@/utils/swal';
 import { formatCurrency } from '@/utils/currency';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
+import { statusClass } from '@/lib/statusBadge';
 
 const Icons = {
     Quote: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
@@ -22,12 +24,12 @@ const Icons = {
 };
 
 const STATUS_STYLES = {
-    draft: 'bg-surface-alt text-ink',
-    sent: 'bg-blue-100 text-blue-800',
-    accepted: 'bg-forest/10 text-forest',
-    rejected: 'bg-terracotta/10 text-terracotta',
-    expired: 'bg-amber-100 text-amber-800',
-    converted: 'bg-violet-100 text-violet-800',
+    draft: statusClass('draft'),
+    sent: statusClass('sent'),
+    accepted: statusClass('accepted'),
+    rejected: statusClass('rejected'),
+    expired: statusClass('expired'),
+    converted: statusClass('converted'),
 };
 
 export default function Index({
@@ -181,7 +183,7 @@ export default function Index({
                             <Link href={route('estimates.batch')} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-ink bg-surface border border-border-warm hover:bg-cream">
                                 Batch
                             </Link>
-                            <Link href={route('estimates.create')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta shadow-lg transition-all duration-200">
+                            <Link href={route('estimates.create')} className={salesPrimaryButton}>
                                 <Icons.Plus /> New estimate
                             </Link>
                         </div>
@@ -193,34 +195,9 @@ export default function Index({
 
             <div className="space-y-4 sm:space-y-6 min-w-0">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">Total estimates</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Quote /></span>
-                        </div>
-                        <p className="text-xl sm:text-2xl font-bold tabular-nums">{totalCount}</p>
-                        <p className="text-xs text-white/80 mt-1">
-                            Draft {counts.draft || 0} · Sent {counts.sent || 0} · Accepted {counts.accepted || 0}
-                        </p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Open quotes</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Exclamation /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-terracotta font-mono tabular-nums">
-                            {formatCurrency(openValue, base_currency)}
-                        </p>
-                        <p className="text-xs text-ink-muted mt-1">Draft · Sent · Accepted</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Converted</span>
-                            <span className="p-2 rounded-xl bg-forest/10 text-forest"><Icons.Check /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-forest font-mono tabular-nums">{convertedCount}</p>
-                        <p className="text-xs text-ink-muted mt-1">Became invoices</p>
-                    </div>
+                    <StatCard label="Estimates" value={totalCount} hint={`Draft ${counts.draft || 0} · Sent ${counts.sent || 0} · Accepted ${counts.accepted || 0}`} />
+                    <StatCard label="Open quotes" value={formatCurrency(openValue, base_currency)} hint="Draft, sent, and accepted" />
+                    <StatCard label="Converted" value={convertedCount} hint="Became invoices" />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

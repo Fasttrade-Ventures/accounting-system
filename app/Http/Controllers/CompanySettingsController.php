@@ -66,6 +66,7 @@ class CompanySettingsController extends Controller
             'toyyibpay_secret_set' => filled($tenant->toyyibpay_secret_key ?? null),
             'late_fee_percent' => (float) ($tenant->late_fee_percent ?? 1.5),
             'show_goods_flow' => $tenant->show_goods_flow !== false,
+            'books_mode' => \App\Support\BooksMode::forTenant($tenant),
             'invoice_gateway' => $tenant->invoice_gateway ?? 'toyyibpay',
             'billplz_collection_id' => $tenant->billplz_collection_id ?? '',
             'billplz_secret_set' => filled($tenant->billplz_secret_key ?? null),
@@ -142,6 +143,7 @@ class CompanySettingsController extends Controller
             'toyyibpay_secret_key' => ['nullable', 'string', 'max:500'],
             'late_fee_percent' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'show_goods_flow' => ['nullable', 'boolean'],
+            'books_mode' => ['nullable', 'string', 'in:basic,advanced'],
             'invoice_gateway' => ['nullable', 'string', 'in:toyyibpay,billplz,commercepay'],
             'billplz_collection_id' => ['nullable', 'string', 'max:80'],
             'billplz_secret_key' => ['nullable', 'string', 'max:500'],
@@ -177,6 +179,9 @@ class CompanySettingsController extends Controller
         if (array_key_exists('show_goods_flow', $validated)) {
             $validated['show_goods_flow'] = filter_var($validated['show_goods_flow'], FILTER_VALIDATE_BOOLEAN);
         }
+        if (array_key_exists('books_mode', $validated)) {
+            $validated['books_mode'] = \App\Support\BooksMode::normalize($validated['books_mode'] ?? null);
+        }
         if (array_key_exists('billplz_sandbox', $validated)) {
             $validated['billplz_sandbox'] = filter_var($validated['billplz_sandbox'], FILTER_VALIDATE_BOOLEAN);
         }
@@ -184,7 +189,10 @@ class CompanySettingsController extends Controller
             $validated['commercepay_live'] = filter_var($validated['commercepay_live'], FILTER_VALIDATE_BOOLEAN);
         }
 
-        $tenant->fill($validated);
+        // Tenant virtual attributes (legal_name, books_mode, …) live in the
+        // Stancl data JSON column and are not on $fillable — forceFill so
+        // they actually persist.
+        $tenant->forceFill($validated);
         if (filled($secret)) {
             $tenant->myinvois_client_secret = encrypt($secret);
         }

@@ -44,15 +44,15 @@ const navConfig = [
         ]},
         { name: 'Billing', links: [
             { name: 'Invoices', nameKey: 'navigation.links.invoices', route: 'invoices.index', Icon: Icons.Document, planPermission: 'invoices.view', userPermission: 'invoices.view', subtitle: 'Bills sent to customers' },
-            { name: 'Recurring Invoices', route: 'recurring-invoices.index', Icon: Icons.ArrowPath, planPermission: 'recurring-invoices.view', userPermission: 'recurring-invoices.view', subtitle: 'Auto-generate, post, and email on a schedule' },
+            { name: 'Recurring Invoices', route: 'recurring-invoices.index', Icon: Icons.ArrowPath, planPermission: 'recurring-invoices.view', userPermission: 'recurring-invoices.view', subtitle: 'Auto-generate and email on a schedule' },
             { name: 'Credit Notes', nameKey: 'navigation.links.credit_notes', route: 'credit-notes.index', Icon: Icons.ReceiptRefund, planPermission: 'credit-notes.view', userPermission: 'credit-notes.view', subtitle: 'Refunds and reductions for customers' },
             { name: 'Debit Notes', route: 'debit-notes.index', Icon: Icons.Document, planPermission: 'credit-notes.view', userPermission: 'debit-notes.view', subtitle: 'Additional charges to customers' },
         ]},
         { name: 'Collections', links: [
-            { name: 'Customer Deposits', route: 'ar-deposits.index', Icon: Icons.CreditCard, planPermission: 'invoices.record-payment', userPermission: 'invoices.record-payment', subtitle: 'Receipts and knock-off across invoices' },
+            { name: 'Customer Deposits', route: 'ar-deposits.index', Icon: Icons.CreditCard, planPermission: 'invoices.record-payment', userPermission: 'invoices.record-payment', subtitle: 'Apply receipts to invoices' },
             { name: 'Customer Statements', route: 'customer-statements.index', Icon: Icons.DocumentChart, planPermission: 'customer-statements.view', userPermission: 'customers.view', subtitle: 'Balance forward report per customer' },
         ]},
-        { name: 'Masters', links: [
+        { name: 'People and items', links: [
             { name: 'Customers', nameKey: 'navigation.links.customers', route: 'customers.index', Icon: Icons.Users, planPermission: 'customers.view', userPermission: 'customers.view', subtitle: 'People and companies you bill' },
             { name: 'Products & Services', route: 'products.index', Icon: Icons.Tag, planPermission: 'products.view', userPermission: 'products.view', subtitle: 'Reusable invoice line items' },
         ]},
@@ -70,22 +70,22 @@ const navConfig = [
             { name: 'Supplier Debit Notes', route: 'supplier-debit-notes.index', Icon: Icons.Document, planPermission: 'bills.view', userPermission: 'bills.view', subtitle: 'Additional charges from suppliers' },
         ]},
         { name: 'Payments', links: [
-            { name: 'Supplier Deposits', route: 'ap-deposits.index', Icon: Icons.CreditCard, planPermission: 'bills.record-payment', userPermission: 'bills.record-payment', subtitle: 'Prepaid and knock-off across bills' },
+            { name: 'Supplier Deposits', route: 'ap-deposits.index', Icon: Icons.CreditCard, planPermission: 'bills.record-payment', userPermission: 'bills.record-payment', subtitle: 'Apply payments to bills' },
             { name: 'Supplier Statements', route: 'supplier-statements.index', Icon: Icons.DocumentChart, planPermission: 'bills.view', userPermission: 'bills.view', subtitle: 'Balance forward report per supplier' },
-            { name: 'Accounts Payable', route: 'accounts-payable.index', Icon: Icons.Document, planPermission: 'reports.aged-reports', userPermission: 'reports.aged-reports', subtitle: 'Outstanding and aging' },
+            { name: 'Bills to pay', route: 'accounts-payable.index', Icon: Icons.Document, planPermission: 'reports.aged-reports', userPermission: 'reports.aged-reports', subtitle: 'What you still owe' },
         ]},
-        { name: 'Masters', links: [
+        { name: 'People and items', links: [
             { name: 'Suppliers', nameKey: 'navigation.links.suppliers', route: 'suppliers.index', Icon: Icons.BuildingOffice, planPermission: 'suppliers.view', userPermission: 'suppliers.view', subtitle: 'Companies you buy from' },
         ]},
     ]},
     { group: 'Accounting', groupKey: 'navigation.groups.accounting', links: [
         { name: 'Transactions', route: 'transactions.index', Icon: Icons.CreditCard, planPermission: 'journal.view', userPermission: 'journal.view', subtitle: 'Bank & cash movements feed', activeRoutes: ['transactions.index', 'transactions.deposit.create', 'transactions.withdrawal.create'] },
         { name: 'Bank reconciliation', route: 'bank-rec.index', Icon: Icons.DocumentCheck, planPermission: 'bank-rec.view', userPermission: 'bank-rec.view', subtitle: 'Import statements & match transactions', activeRoutes: ['bank-rec.index', 'bank-rec.import', 'bank-rec.match'] },
-        { name: 'Chart of Accounts', route: 'chart-of-accounts.index', Icon: Icons.Folder, planPermission: 'accounts.view', userPermission: 'accounts.view', subtitle: 'Accounts used in postings and reports' },
-        { name: 'General Ledger', route: 'general-ledger.index', Icon: Icons.BookOpen, planPermission: 'general-ledger.view', userPermission: 'general-ledger.view', subtitle: 'By journal entry' },
-        { name: 'Manual Journal Entry', route: 'journal.index', Icon: Icons.Scale, planPermission: 'journal.create', userPermission: 'journal.view', subtitle: 'Post custom journal entries' },
+        { name: 'Account list', route: 'chart-of-accounts.index', Icon: Icons.Folder, planPermission: 'accounts.view', userPermission: 'accounts.view', subtitle: 'Accounts used on invoices and reports' },
+        { name: 'All entries', route: 'general-ledger.index', Icon: Icons.BookOpen, planPermission: 'general-ledger.view', userPermission: 'general-ledger.view', subtitle: 'Every amount recorded in the books' },
+        { name: 'Manual Journal Entry', route: 'journal.index', Icon: Icons.Scale, planPermission: 'journal.create', userPermission: 'journal.view', subtitle: 'Record a custom entry' },
         { name: 'Payroll', route: 'payroll.create', Icon: Icons.Users, planPermission: 'payroll.run', userPermission: 'journal.create', subtitle: 'Record monthly salaries & statutory' },
-        { name: 'Trial Balance', route: 'trial-balance.index', Icon: Icons.Scale, planPermission: 'general-ledger.view', userPermission: 'general-ledger.view', subtitle: 'Verify account balances' },
+        { name: 'Balance check', route: 'trial-balance.index', Icon: Icons.Scale, planPermission: 'general-ledger.view', userPermission: 'general-ledger.view', subtitle: 'Check that the books balance' },
     ]},
     { group: 'Reports', groupKey: 'navigation.groups.reports', links: [
         { name: 'Reports', nameKey: 'navigation.links.reports', route: 'reports.index', Icon: Icons.ChartPie, planPermission: 'reports.view', userPermission: 'reports.view', subtitle: 'Financial statements & analysis', activeRoutes: ['reports.index', 'general-ledger.index', 'general-ledger.report', 'trial-balance.index', 'profit-and-loss.index', 'reports.budget-vs-actual.index', 'budgets.index', 'reports.sales.index', 'balance-sheet.index', 'cashflow-summary.index', 'cash-flow-statement.index', 'aged-receivables.index', 'accounts-payable.index', 'reports.sales-tax.index', 'reports.payroll-remittance', 'reports.income-by-customer.index', 'reports.customer-credits.index', 'reports.purchases-by-vendor.index'] },
@@ -104,9 +104,38 @@ const linkIsActive = (link, isRouteActive) =>
         ? link.activeRoutes.some((r) => isRouteActive(r))
         : isRouteActive(link.route);
 
+/** Mirrors App\Support\BooksMode::BASIC_PREFIXES — Basic keeps a short menu. */
+const BASIC_ROUTE_PREFIXES = [
+    'dashboard',
+    'estimates.',
+    'invoices.',
+    'customer-statements.',
+    'customers.',
+    'products.',
+    'bills.',
+    'suppliers.',
+    'settings.company',
+    'settings.changelog',
+    'settings.plan',
+    'settings.invite-firm',
+    'settings.2fa',
+    'profile.',
+    'subscription.',
+    'logout',
+];
+
+const isBasicNavRoute = (routeName) => {
+    if (!routeName) return true;
+    return BASIC_ROUTE_PREFIXES.some((prefix) => {
+        if (prefix === routeName) return true;
+        if (prefix.endsWith('.')) return routeName.startsWith(prefix);
+        return routeName === prefix || routeName.startsWith(`${prefix}.`);
+    });
+};
+
 // Shared classNames for nav links — terracotta active state, ink-muted resting
 const linkClasses = (active, disabled, rail = false) =>
-    `flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-150 ${
+    `flex items-center gap-3 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors duration-150 ${
         rail ? 'lg:justify-center lg:px-2' : ''
     } ${
         active
@@ -209,15 +238,15 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
     return (
         <>
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 flex flex-col border-r border-border-warm bg-surface custom-scrollbar transform transition-[width,transform] duration-200 ease-out lg:relative lg:z-auto lg:translate-x-0 lg:flex-shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarCollapsed ? 'lg:w-[4.75rem]' : 'lg:w-72'}`}
+                className={`fixed inset-y-0 left-0 z-50 w-60 flex flex-col border-r border-border-warm bg-surface custom-scrollbar transform transition-[width,transform] duration-200 ease-out lg:relative lg:z-auto lg:translate-x-0 lg:flex-shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarCollapsed ? 'lg:w-[4.75rem]' : 'lg:w-60'}`}
             >
-                <div className={`p-4 sm:p-6 flex items-center justify-between gap-3 border-b border-border-warm bg-surface ${sidebarCollapsed ? 'lg:flex-col lg:p-3 lg:gap-2' : ''}`}>
-                    <div className="flex items-center gap-3 min-w-0">
-                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-cream">
-                            <ApplicationLogo className="block h-9 w-9" />
+                <div className={`p-3 sm:p-4 flex items-center justify-between gap-3 border-b border-border-warm bg-surface ${sidebarCollapsed ? 'lg:flex-col lg:p-3 lg:gap-2' : ''}`}>
+                    <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-cream">
+                            <ApplicationLogo className="block h-7 w-7" />
                         </div>
                         <div className={`min-w-0 ${sidebarCollapsed ? 'lg:hidden' : ''}`}>
-                            <span className="font-display font-medium text-ink tracking-tight text-base block truncate">{page.props.product_name}</span>
+                            <span className="font-display font-medium text-ink tracking-tight text-sm block truncate">{page.props.product_name}</span>
                             {String(page.props.product_tagline ?? '').trim() !== '' && (
                                 <span className="block text-eyebrow text-ink-muted uppercase truncate">{page.props.product_tagline}</span>
                             )}
@@ -245,7 +274,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                     </button>
                 </div>
 
-                <nav className={`flex-1 py-5 overflow-y-auto bg-surface ${sidebarCollapsed ? 'px-3 lg:px-1.5' : 'px-3'}`}>
+                <nav className={`flex-1 py-3 overflow-y-auto bg-surface ${sidebarCollapsed ? 'px-3 lg:px-1.5' : 'px-2.5'}`}>
                     {/* SME plan nag — only for tenant users on free, never for
                         firm users (they have their own practice plan badge
                         below) and never for super-admins or self-hosted. */}
@@ -291,11 +320,15 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                     {navConfig.map((section, idx) => {
                         if (isAdmin && section.group !== 'Admin') return null;
 
+                        const booksMode = company_flags?.books_mode || 'advanced';
+                        const isBasicBooks = booksMode === 'basic';
+
                         const linkVisible = (link) => {
                             const planOk = !link.planPermission || planPermissions[link.planPermission];
                             const userOk = !link.userPermission || hasPermission(link.userPermission);
                             const goodsOk = !link.requiresGoodsFlow || company_flags?.show_goods_flow !== false;
-                            return planOk && userOk && goodsOk;
+                            const booksOk = !isBasicBooks || isBasicNavRoute(link.route);
+                            return planOk && userOk && goodsOk && booksOk;
                         };
 
                         const renderNavLink = (link) => {
@@ -313,13 +346,8 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                     <span className={iconWrapClasses(active)}>
                                         <Icon />
                                     </span>
-                                    <span className={navLabelClass(sidebarCollapsed)}>
-                                        <span className="block truncate">{linkName(link)}</span>
-                                        {link.subtitle && (
-                                            <span className={`block text-[10px] font-normal mt-0.5 truncate ${active ? 'text-white/80' : 'text-ink-muted'}`}>
-                                                {link.subtitle}
-                                            </span>
-                                        )}
+                                    <span className={`${navLabelClass(sidebarCollapsed)} truncate`}>
+                                        {linkName(link)}
                                     </span>
                                     {active && (
                                         <span className={`w-1.5 h-1.5 rounded-full bg-white/90 flex-shrink-0 ${sidebarCollapsed ? 'lg:hidden' : ''}`} />
@@ -462,13 +490,8 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                             <span className={iconWrapClasses(active)}>
                                                 <link.Icon />
                                             </span>
-                                            <span className={navLabelClass(sidebarCollapsed)}>
-                                                <span className="block truncate">{linkName(link)}</span>
-                                                {link.subtitle && (
-                                                    <span className={`block text-[10px] font-normal mt-0.5 truncate ${active ? 'text-white/80' : 'text-ink-muted'}`}>
-                                                        {link.subtitle}
-                                                    </span>
-                                                )}
+                                            <span className={`${navLabelClass(sidebarCollapsed)} truncate`}>
+                                                {linkName(link)}
                                             </span>
                                             {active && <span className={`w-1.5 h-1.5 rounded-full bg-white/90 ${sidebarCollapsed ? 'lg:hidden' : ''}`} />}
                                         </Link>
@@ -478,11 +501,16 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                         </div>
                     )}
 
-                    {!isAdmin && (
+                    {!isAdmin && (() => {
+                        const booksMode = company_flags?.books_mode || 'advanced';
+                        const isBasicBooks = booksMode === 'basic';
+                        const companyLinkOk = (routeName) => !isBasicBooks || isBasicNavRoute(routeName);
+
+                        return (
                         <div className="mb-2">
                             <button
                                 onClick={() => toggleGroup('Company')}
-                                className={`w-full flex items-center justify-between px-3 py-2 text-eyebrow font-semibold text-ink-muted uppercase hover:bg-surface-alt rounded-lg transition-colors ${sidebarCollapsed ? 'lg:hidden' : ''}`}
+                                className={`w-full flex items-center justify-between px-3 py-1.5 text-eyebrow font-semibold text-ink-muted uppercase hover:bg-surface-alt rounded-lg transition-colors ${sidebarCollapsed ? 'lg:hidden' : ''}`}
                             >
                                 <span>Company</span>
                                 <span className={`transition-transform duration-200 ${openGroups['Company'] || sidebarCollapsed ? 'rotate-0' : '-rotate-90 text-ink-muted/60'}`}>
@@ -490,6 +518,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                 </span>
                             </button>
                             <div className={`mt-1 space-y-0.5 overflow-hidden transition-all duration-300 ${openGroups['Company'] || sidebarCollapsed ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                {companyLinkOk('settings.company') && (
                                 <Link
                                     href={getSafeRoute('settings.company')}
                                     className={linkClasses(isRouteActive('settings.company'), false, sidebarCollapsed)}
@@ -500,6 +529,8 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                     </span>
                                     <span className={navLabelClass(sidebarCollapsed)}>Company settings</span>
                                 </Link>
+                                )}
+                                {companyLinkOk('settings.changelog') && (
                                 <Link
                                     href={getSafeRoute('settings.changelog')}
                                     className={linkClasses(isRouteActive('settings.changelog'), false, sidebarCollapsed)}
@@ -512,10 +543,11 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                     </span>
                                     <span className={navLabelClass(sidebarCollapsed)}>What&apos;s new</span>
                                 </Link>
+                                )}
                                 {/* Tenant admins can hand the books to a firm here. Hidden when
                                     the user is themselves a firm/accountant user — they're the
                                     party who would receive such an invite, not send one. */}
-                                {!practice && (
+                                {!practice && companyLinkOk('settings.invite-firm.show') && (
                                     <Link
                                         href={getSafeRoute('settings.invite-firm.show')}
                                         className={linkClasses(isRouteActive('settings.invite-firm.show'), false, sidebarCollapsed)}
@@ -527,7 +559,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                         <span className={navLabelClass(sidebarCollapsed)}>Invite my accountant</span>
                                     </Link>
                                 )}
-                                {hasPermission('audit.view') && planPermissions['audit-logs.view'] && (
+                                {companyLinkOk('audit.index') && hasPermission('audit.view') && planPermissions['audit-logs.view'] && (
                                     <Link
                                         href={getSafeRoute('audit.index')}
                                         className={linkClasses(isRouteActive('audit.index'), false, sidebarCollapsed)}
@@ -539,7 +571,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                         <span className={navLabelClass(sidebarCollapsed)}>Audit Compliance</span>
                                     </Link>
                                 )}
-                                {hasPermission('users.view') && planPermissions['users.view'] && (
+                                {companyLinkOk('settings.team.index') && hasPermission('users.view') && planPermissions['users.view'] && (
                                     <Link
                                         href={getSafeRoute('settings.team.index')}
                                         className={linkClasses(isRouteActive('settings.team.index'), false, sidebarCollapsed)}
@@ -551,7 +583,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                         <span className={navLabelClass(sidebarCollapsed)}>Team & Roles</span>
                                     </Link>
                                 )}
-                                {hasPermission('audit-logs.view') && planPermissions['audit-logs.view'] && (
+                                {companyLinkOk('audit-logs.index') && hasPermission('audit-logs.view') && planPermissions['audit-logs.view'] && (
                                     <Link
                                         href={getSafeRoute('audit-logs.index')}
                                         className={linkClasses(isRouteActive('audit-logs.index'), false, sidebarCollapsed)}
@@ -568,7 +600,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                 {/* API & Integrations — visible to admins on Solo+ tenants
                                     (Solo is the lowest tier with `api.access`). Hidden on
                                     Startup/Free tenants and from non-admin team members. */}
-                                {hasPermission('integrations.view') && planPermissions['api.access'] && (
+                                {companyLinkOk('settings.integrations.index') && hasPermission('integrations.view') && planPermissions['api.access'] && (
                                     <Link
                                         href={getSafeRoute('settings.integrations.index')}
                                         className={linkClasses(isRouteActive('settings.integrations.index'), false, sidebarCollapsed)}
@@ -588,7 +620,7 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                         Enterprise installs the firm-owner is effectively
                                         the operator, and they need to see license
                                         expiry / heartbeat / renewal contact. */}
-                                {(user.role_name === 'admin' || user.role_name === 'super-admin' || (isSelfHosted && user.role_name === 'firm-owner')) && (
+                                {companyLinkOk('settings.plan.index') && (user.role_name === 'admin' || user.role_name === 'super-admin' || (isSelfHosted && user.role_name === 'firm-owner')) && (
                                     <Link
                                         href={getSafeRoute('settings.plan.index')}
                                         className={linkClasses(isRouteActive('settings.plan.index'), false, sidebarCollapsed)}
@@ -608,7 +640,8 @@ export default function NavSidebar({ sidebarOpen, onSidebarOpenChange }) {
                                     controls live with the user's own profile. */}
                             </div>
                         </div>
-                    )}
+                        );
+                    })()}
                 </nav>
 
                 <div className={`p-4 pb-15 lg:pb-4 border-t border-border-warm bg-surface ${sidebarCollapsed ? 'lg:px-2' : ''}`}>

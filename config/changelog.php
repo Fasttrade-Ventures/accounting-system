@@ -16,6 +16,34 @@ return [
 
     'releases' => [
         [
+            'id' => '2026-11-plain-language-basic-mode',
+            'label' => 'Plain language, Sales polish & Basic mode',
+            'date' => '2026-11-24',
+            'summary' => 'Easier wording for non-accountants, consistent Sales list screens, a narrower sidebar, and a Basic / Advanced company view that hides advanced books screens without stopping posting.',
+            'sections' => [
+                'added' => [
+                    'Basic / Advanced mode on the company — choose at signup or in Company settings',
+                    'Basic keeps a short menu (quotes, invoices, bills, customers, suppliers); Advanced shows the full set of books screens',
+                    'Opening a hidden screen shows an Advanced explanation with a button to turn Advanced on',
+                    'Shared white StatCard and status badge styles across Sales list screens',
+                    'Plain tax labels on document lines: No tax, Service tax 8%, Sales tax 10%',
+                ],
+                'improved' => [
+                    'Sidebar narrowed to 240px with one line per item',
+                    'White page background instead of cream',
+                    'Menu wording: People and items, Account list, All entries, Balance check, Bills to pay, Overdue customers',
+                    'Invoice action says Record this invoice; bill copy matches',
+                    'Credit notes use the same terracotta Sales chrome as other lists',
+                ],
+                'fixed' => [
+                    'LHDN classification codes hidden on invoice and bill lines (still stored for e-invoice)',
+                    'MSIC removed from invoice and recurring forms — set once in Company settings',
+                    'Zero-rated removed from the everyday tax picker',
+                    'Customer statement deposit chip no longer says Knock-off',
+                ],
+            ],
+        ],
+        [
             'id' => 'wave-4',
             'label' => 'Wave 4 — Depth & Scale',
             'date' => '2026-08-27',

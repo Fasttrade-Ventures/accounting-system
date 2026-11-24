@@ -436,11 +436,11 @@ export default function Dashboard({ auth, stats = {} }) {
                                     {planPermissions['reports.aged-reports'] && (
                                         <>
                                             <Link href={route('aged-receivables.index')} className="text-xs font-semibold text-terracotta hover:text-terracotta-dark inline-flex items-center gap-1">
-                                                Aged receivables <Icons.ChevronRight />
+                                                Overdue customers <Icons.ChevronRight />
                                             </Link>
                                             <span className="text-ink-muted">·</span>
                                             <Link href={route('accounts-payable.index')} className="text-xs font-semibold text-terracotta hover:text-terracotta-dark inline-flex items-center gap-1">
-                                                Aged payables <Icons.ChevronRight />
+                                                Bills to pay <Icons.ChevronRight />
                                             </Link>
                                         </>
                                     )}

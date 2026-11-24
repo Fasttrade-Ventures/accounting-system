@@ -12,6 +12,8 @@ import {
     formatCurrency,
     normalizeCurrency,
 } from '@/utils/currency';
+import StatCard, { salesPrimaryButton } from '@/Components/StatCard';
+import { statusClass } from '@/lib/statusBadge';
 
 const Icons = {
     Document: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>,
@@ -31,14 +33,7 @@ const Icons = {
 };
 
 function getStatusBadge(status) {
-    const styles = {
-        paid: 'bg-forest/10 text-forest',
-        unpaid: 'bg-terracotta/10 text-terracotta',
-        'partially paid': 'bg-surface-alt text-terracotta',
-        draft: 'bg-surface-alt text-ink',
-        void: 'bg-surface-alt text-ink-muted',
-    };
-    return styles[status] || 'bg-surface-alt text-ink';
+    return statusClass(status);
 }
 
 function formatInvoiceAmount(invoice) {
@@ -195,7 +190,7 @@ export default function Index({ auth, invoices = [], bankAccounts = [], totalOut
                         <Link href={route('invoices.batch')} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-ink bg-surface border border-border-warm hover:bg-cream">
                             {t('invoices.batch')}
                         </Link>
-                        <Link href={route('invoices.create')} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-white bg-terracotta hover:bg-terracotta shadow-lg  transition-all duration-200">
+                        <Link href={route('invoices.create')} className={salesPrimaryButton}>
                             <Icons.Plus /> {t('invoices.create')}
                         </Link>
                     </div>
@@ -206,30 +201,9 @@ export default function Index({ auth, invoices = [], bankAccounts = [], totalOut
 
             <div className="space-y-4 sm:space-y-6 min-w-0">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="relative overflow-hidden bg-terracotta text-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-widest opacity-90">{t('invoices.total_invoices')}</span>
-                            <span className="p-2 rounded-xl bg-surface/10"><Icons.Document /></span>
-                        </div>
-                        <p className="text-xl sm:text-2xl font-bold tabular-nums">{totalCount}</p>
-                        <p className="text-xs text-terracotta mt-1">{t('invoices.total_invoices_hint')}</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">{t('invoices.outstanding_ar')}</span>
-                            <span className="p-2 rounded-xl bg-terracotta/10 text-terracotta"><Icons.Exclamation /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-terracotta font-mono tabular-nums">RM {totalOutstanding.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</p>
-                        <p className="text-xs text-ink-muted mt-1">{t('invoices.outstanding_hint')}</p>
-                    </div>
-                    <div className="bg-surface rounded-2xl p-4 sm:p-6 border border-border-warm shadow-sm">
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">{t('invoices.collected')}</span>
-                            <span className="p-2 rounded-xl bg-forest/10 text-forest"><Icons.Check /></span>
-                        </div>
-                        <p className="text-lg sm:text-xl font-bold text-forest font-mono tabular-nums">RM {totalCollected.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</p>
-                        <p className="text-xs text-ink-muted mt-1">{t('invoices.collected_hint')}</p>
-                    </div>
+                    <StatCard label={t('invoices.total_invoices')} value={totalCount} hint={t('invoices.total_invoices_hint')} />
+                    <StatCard label={t('invoices.outstanding_ar')} value={`RM ${totalOutstanding.toLocaleString('en-MY', { minimumFractionDigits: 2 })}`} hint={t('invoices.outstanding_hint')} />
+                    <StatCard label={t('invoices.collected')} value={`RM ${totalCollected.toLocaleString('en-MY', { minimumFractionDigits: 2 })}`} hint={t('invoices.collected_hint')} />
                 </div>
 
                 <div className="bg-surface rounded-2xl border border-border-warm/80 shadow-sm overflow-hidden">

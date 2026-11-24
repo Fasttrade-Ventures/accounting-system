@@ -292,6 +292,8 @@ class HandleInertiaRequests extends Middleware
             },
             'company_flags' => [
                 'show_goods_flow' => ! $tenant || $tenant->show_goods_flow !== false,
+                // Missing books_mode means Advanced so existing companies keep the full menu.
+                'books_mode' => \App\Support\BooksMode::forTenant($tenant),
             ],
             'onboarding_checklist' => function () use ($user, $tenant) {
                 if (! $user || ! $tenant || $user->isFirmUser()) {

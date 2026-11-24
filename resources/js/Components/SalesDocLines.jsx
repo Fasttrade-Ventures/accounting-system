@@ -1,5 +1,6 @@
 import React from 'react';
 import { lineNet } from '@/Components/DocumentFormNotesTotals';
+import { taxChoiceLabel, visibleTaxCodes } from '@/lib/taxChoiceLabel';
 
 const Icons = {
     Plus: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>,
@@ -9,11 +10,11 @@ const Icons = {
 const lineControlClass = 'w-full h-8 border border-border-warm rounded-lg py-1 px-1.5 text-xs font-medium text-ink bg-surface focus:ring-1 focus:ring-terracotta disabled:bg-cream disabled:text-ink-muted';
 const lineDescClass = 'block w-full min-w-0 h-8 border border-border-warm rounded-lg py-1.5 px-1.5 text-xs leading-4 font-medium text-ink bg-surface placeholder-ink-muted/60 focus:ring-1 focus:ring-terracotta resize-y disabled:bg-cream';
 const lineNumberClass = `${lineControlClass} font-mono tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`;
-const lineTaxClass = `${lineControlClass} px-0.5 pr-5 text-center tabular-nums`;
+const lineTaxClass = `${lineControlClass} px-2 pr-6 text-left`;
 const linePickIconClass = 'relative shrink-0 h-8 w-8 rounded-lg border border-border-warm bg-cream/50 text-ink-muted hover:bg-cream hover:text-terracotta transition-colors';
 
 export function blankSalesLine(extra = {}) {
-    return { description: '', quantity: 1, unit_price: 0, tax_rate: 8, tax_code_id: null, discount_amount: 0, product_id: null, item_classification: '011', ...extra };
+    return { description: '', quantity: 1, unit_price: 0, tax_rate: 8, tax_code_id: null, discount_amount: 0, product_id: null, item_classification: '022', ...extra };
 }
 
 export function lineAmount(item) {
@@ -30,8 +31,8 @@ export default function SalesDocLines({
     disabled = false,
     descriptionPlaceholder = 'What is this line for?',
 }) {
-    const showLhdn = lhdnCodes.length > 0;
-    const addBlank = () => blankSalesLine(showLhdn ? { item_classification: lhdnCodes[0]?.id || '011' } : {});
+    const defaultClass = lhdnCodes.find((code) => code.id === '022')?.id || '022';
+    const addBlank = () => blankSalesLine({ item_classification: defaultClass });
     const update = (index, patch) => {
         onChange(items.map((row, i) => (i === index ? { ...row, ...patch } : row)));
     };
@@ -59,23 +60,21 @@ export default function SalesDocLines({
             <div className="overflow-x-auto overscroll-x-contain rounded-2xl">
                 <table className="w-full min-w-[40rem] text-left border-collapse">
                     <colgroup>
-                        {showLhdn && <col className="w-[5.5rem]" />}
                         <col />
                         <col className="w-16" />
                         <col className="w-[4.75rem]" />
-                        <col className="w-[4.5rem]" />
-                        <col className="w-16" />
+                        <col className="w-[5.5rem]" />
+                        <col className="w-[9.5rem]" />
                         <col className="w-[5.25rem]" />
                         <col className="w-9" />
                     </colgroup>
                     <thead>
-                        <tr className="bg-cream/80 border-b border-border-warm text-[10px] font-display font-medium text-ink-muted uppercase tracking-widest">
-                            {showLhdn && <th className="px-2 py-2">LHDN</th>}
+                        <tr className="bg-surface-alt border-b border-border-warm text-[10px] font-display font-medium text-ink-muted uppercase tracking-widest">
                             <th className="px-2 py-2">Description</th>
                             <th className="px-1 py-2 text-center">Qty</th>
                             <th className="px-1 py-2 text-right">Price</th>
-                            <th className="px-1 py-2 text-right">Disc</th>
-                            <th className="px-1 py-2 text-center">Tax</th>
+                            <th className="px-1 py-2 text-right">Discount</th>
+                            <th className="px-2 py-2 text-left">Tax</th>
                             <th className="px-2 py-2 text-right">Total</th>
                             <th className="px-1 py-2"></th>
                         </tr>
@@ -83,20 +82,6 @@ export default function SalesDocLines({
                     <tbody className="divide-y divide-border-warm">
                         {items.map((item, index) => (
                             <tr key={index} className="group hover:bg-surface-alt/20 transition-all duration-200">
-                                {showLhdn && (
-                                    <td className="px-2 py-2 align-middle">
-                                        <select
-                                            value={item.item_classification || lhdnCodes[0]?.id || '011'}
-                                            onChange={(e) => update(index, { item_classification: e.target.value })}
-                                            disabled={disabled}
-                                            className={`${lineControlClass} block truncate`}
-                                        >
-                                            {lhdnCodes.map((code) => (
-                                                <option key={code.id} value={code.id}>{code.id}</option>
-                                            ))}
-                                        </select>
-                                    </td>
-                                )}
                                 <td className="px-2 py-2 align-middle">
                                     <div className="flex items-center gap-1.5 min-w-0">
                                         <textarea
@@ -152,8 +137,8 @@ export default function SalesDocLines({
                                         disabled={disabled}
                                         className={`${lineTaxClass} block`}
                                     >
-                                        {taxCodes.length > 0 ? taxCodes.map((code) => (
-                                            <option key={code.id} value={code.id}>{code.code} ({code.rate}%)</option>
+                                        {visibleTaxCodes(taxCodes).length > 0 ? visibleTaxCodes(taxCodes).map((code) => (
+                                            <option key={code.id} value={code.id}>{taxChoiceLabel(code)}</option>
                                         )) : (
                                             <>
                                                 <option value="0">0%</option>
